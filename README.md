@@ -1,5 +1,7 @@
 # Learning to Rank: Rangfolge aus Merkmalen statt aus Duellen – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-learning-to-rank-demo.streamlit.app/)**
+
 Vierzehntes Stück der **Ranking-Linie** (Konzepte-Demo), Nachfolger von `rangintervalle-demo` und `bradley-terry-demo`: Wer zum ersten Mal spielt, hat keine Duelle, aber Merkmale.
 **Learning to Rank** lernt aus früheren Gruppen („Saisons“) eine Funktion, die Spieler nach ihren Merkmalen ordnet. Gemessen wird, **wie weit Merkmale tragen** (Obergrenze durch das
 Unerklärte), **wann man überanpasst**, **ob der Verlust zählt** (punktweise, paarweise, listenweise, NDCG-gewichtet), **was Duelle gegen Merkmale bringen** (und ein Hybrid) und
@@ -131,4 +133,4 @@ Gebaut mit Streamlit, Plotly, numpy, pandas und fpdf2.
 
 ---
 
-Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Ranking: von der Siegtabelle bis Learning to Rank](https://sebastianhanisch.net/konzepte-ranking.html).
