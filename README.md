@@ -54,6 +54,8 @@ Verfahren zu lesen.
 
 ## Befunde und Korrekturen gegenüber dem Plan
 
+- **Korrektur 2026-10-17 (Quellenangabe, Eigenschaftstest):** Die README nannte Järvelin/Kekäläinen (2002) für den NDCG, die Demo rechnet aber in der Schreibweise nach Burges 2010 (Gewinn 2^Stufe − 1, Abschlag 1/log₂(i+1)); die Quellenzeile sagt das jetzt. Die Rechnung selbst ist durch den Test gegen ein veröffentlichtes DCG-Beispiel und gegen Aufzählen mit `math.log2` belegt. Zahlen unverändert.
+
 - **„Der Hybrid liegt fast immer oben“ stimmt nur beinahe:** Bei viel Unerklärtem (σ_u = 1,4) und 5,5 Spielen liegen Duelle allein (0,823) knapp vor dem Hybrid (0,817), und bei
   σ_u = 0 stören die Duelle die Merkmale (Hybrid 0,935 gegen Merkmale 0,975 bei 1,1 Spielen). Der Hybrid gewinnt dort, wo Merkmale und Duelle beide etwas wissen.
 - **Gitter des Hybrids bis 100 statt 10:** In der Vorab-Messung verlor der Hybrid bei σ_u = 0,3 und 1,1 Spielen gegen die Merkmale, weil das Gitter nur bis 10 reichte; mit dem Gitter bis 100
@@ -85,7 +87,7 @@ Verfahren zu lesen.
 - Burges, C. et al. (2005): Learning to rank using gradient descent. *ICML 2005* (RankNet; nicht eingesehen).
 - Cao, Z., Qin, T., Liu, T.-Y., Tsai, M.-F., Li, H. (2007): Learning to rank: from pairwise approach to listwise approach. *ICML 2007* (ListNet; nicht eingesehen).
 - Burges, C. J. C. (2010): From RankNet to LambdaRank to LambdaMART: an overview. *Microsoft Research Technical Report MSR-TR-2010-82* (nicht eingesehen).
-- Järvelin, K., Kekäläinen, J. (2002): Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems* 20, 422–446 (NDCG; nicht eingesehen).
+- Järvelin, K., Kekäläinen, J. (2002): Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems* 20, 422–446 (Ursprung des NDCG; nicht eingesehen; die Demo rechnet NDCG mit Gewinn 2^Stufe − 1 und Abschlag 1/log₂(i+1), der Schreibweise nach Burges 2010, nicht nach der Originaldefinition).
 - Bradley, R. A., Terry, M. E. (1952): Rank analysis of incomplete block designs. *Biometrika* 39, 324–345 (nicht eingesehen).
 - Steele, G. L., Lea, D., Flood, C. H. (2014): Fast splittable pseudorandom number generators. *OOPSLA 2014*, 453–472 (Zufallsstrom des Generators).
 - **Nicht herangezogen:** die Dokumentation der Ranking-Ziele von LightGBM und XGBoost; die Zahlen dieser Demo sind Simulation.
