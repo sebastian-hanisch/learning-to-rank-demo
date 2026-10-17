@@ -3,6 +3,7 @@
 Der genaue Wortlaut kommt aus tools/set_demo_footer.py im Website-Repo (`python tools/set_demo_footer.py --only <slug> --apply`
 schreibt ihn in app.py und README.md). Dieser Test prüft deshalb nur die Struktur und bleibt grün, wenn der Wortlaut dort geändert wird."""
 
+import os
 import re
 from pathlib import Path
 
@@ -13,7 +14,7 @@ MARKER = "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://seb
 
 
 def _footer_caption():
-    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=180)
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=int(os.environ.get("APPTEST_TIMEOUT", "300")))   # unter Last (parallele Läufe) reichen 180 s nicht immer
     at.run()
     assert not at.exception, [str(e) for e in at.exception]
     captions = [c.value for c in at.caption if MARKER in c.value]
