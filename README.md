@@ -10,9 +10,9 @@ Unerklärte), **wann man überanpasst**, **ob der Verlust zählt** (punktweise, 
 ## Kernfrage
 
 Wie weit kommt man mit Merkmalen allein? **Acht Merkmale, die zwei Drittel der Streuung der Stärke erklären (Unerklärtes σ_u = 0,7):** neue Spieler ohne ein einziges Duell werden zu
-**0,81** richtig geordnet (Zufall 0,50, NDCG@5 0,85), und das ist die **Obergrenze** (die Ordnung nach der wahren Funktion ohne Rauschen: 0,81). Mit 5 Trainingsgruppen sind es 0,78, mit 80
-0,81. Bleibt nichts unerklärt: 0,98; bei σ_u = 1,4: 0,70. **Der Verlust zählt wenig:** bei 80 Gruppen liegen alle fünf innerhalb von 0,003, bei 5 Gruppen ist der NDCG-gewichtete am
-schwächsten (0,75 gegen 0,78). **Duelle schlagen Merkmale erst mit genug Spielen:** bei 5,5 Spielen je Spieler Merkmale 0,80, Duelle allein 0,79, **Hybrid** (Bradley-Terry mit den Merkmalen
+**0,81** richtig geordnet (Zufall 0,50, NDCG@5 0,85), und das ist ab 40 Trainingsgruppen die **Obergrenze im Erwartungswert** (die Ordnung nach der wahren Funktion ohne Rauschen: 0,81; in einzelnen Läufen liegt das Modell darüber). Mit 5 Trainingsgruppen sind es 0,78, mit 80
+0,81. Bleibt nichts unerklärt: 0,98; bei σ_u = 1,4: 0,70. **Bei linearem Modell und linearer Wahrheit zählt der Verlust wenig:** bei 80 Gruppen liegen alle fünf innerhalb von 0,003, bei 5 Gruppen ist der NDCG-gewichtete am
+schwächsten (0,75 gegen 0,78). **Bei σ_u = 0,7 schlagen Duelle allein die Merkmale erst zwischen 5,5 und 11 Spielen je Spieler:** bei 5,5 Spielen je Spieler Merkmale 0,80, Duelle allein 0,79, **Hybrid** (Bradley-Terry mit den Merkmalen
 als Prior) **0,83**; bei 11 Spielen 0,80 / 0,85 / 0,86. **Ein Netz lohnt nur bei nichtlinearer Wahrheit und genug Gruppen:** linear 0,75, Netz 0,825 bei 80 und 0,835 bei 200 Gruppen (Obergrenze 0,844), aber
 0,740 bei 20 (Training 0,860). Wer auf den Trainingsgruppen prüft, sieht bei 30 Merkmalen und 5 Gruppen 0,89 statt 0,77.
 
@@ -34,7 +34,7 @@ als Prior) **0,83**; bei 11 Spielen 0,80 / 0,85 / 0,86. **Ein Netz lohnt nur bei
 - **Neue Gruppen:** Die Prüfung läuft auf Gruppen, die nie im Training waren; der Test auf den Trainingsgruppen wird nur als Lücke gezeigt.
 - **Zufall:** `turnier_generator.py` mit SplitMix64-Strom (wortgleich mit den Repos der Linie); Normalwerte per Box-Muller; je Gruppe ein eigener Strom aus (Seed, Nummer), die ersten Q Gruppen
   bleiben bei größerem Q dieselben.
-- **Rechenzeit:** Die Experimente rechnen beim ersten Aufruf rund anderthalb Minuten und werden danach zwischengespeichert.
+- **Rechenzeit:** Die Experimente rechnen beim ersten Aufruf etwa drei bis fünf Minuten (maschinenabhängig) und werden danach zwischengespeichert.
 
 ## Befunde (gemessen, keine Behauptungen)
 
@@ -44,13 +44,12 @@ Alle Zahlen: 60 feste Läufe, 8 Merkmale, 12 Spieler je Gruppe, lineares Modell 
 |---|---|---|
 | Obergrenze durch das Unerklärte (5 / 80 Trainingsgruppen) | σ_u = 0: **0,92 / 0,98** (0,96 / 0,99); σ_u = 0,7: 0,78 / **0,81** (0,82 / 0,85), Obergrenze 0,81; σ_u = 1,4: 0,66 / **0,70** (0,68 / 0,72), Obergrenze 0,70. Zufall 0,50. | `test_features_reach_the_ceiling_that_the_unexplained_part_sets` |
 | Überanpassung bei 5 / 20 / 80 Gruppen, σ_u = 0,5, 4 Duelle je Paar | 8 Merkmale: Test 0,841 / 0,852 / 0,855, Training 0,858 / 0,851 / 0,850; **30 Merkmale: Test 0,767 / 0,835 / 0,846, Training 0,888 / 0,859 / 0,854**. | `test_many_features_and_few_groups_overfit` |
-| Verluste (punktweise / Duelle / Stufen / ListNet / NDCG-gewichtet), 5 und 80 Gruppen | 5 Gruppen: 0,777 / 0,778 / 0,770 / 0,770 / **0,752**; 80 Gruppen: 0,807 / 0,807 / 0,807 / 0,807 / 0,804 (alle innerhalb 0,003). | `test_the_loss_matters_little` |
-| Warm, σ_u = 0,7 (Merkmale / Duelle allein / Hybrid) bei 1,1 / 2,8 / 5,5 / 11 Spielen je Spieler | Merkmale 0,80 (unabhängig von den Spielen); Duelle 0,66 / 0,71 / 0,79 / **0,85**; Hybrid 0,80 / 0,81 / **0,83** / **0,86**. σ_u = 1,4, 11 Spiele: 0,69 / **0,88** / 0,88. σ_u = 0: Merkmale 0,975, Hybrid 0,94 bis 0,96. | `test_features_duels_and_the_hybrid` |
+| Verluste (punktweise / Duelle / Stufen / ListNet / NDCG-gewichtet), 5 und 80 Gruppen | 5 Gruppen: 0,777 / 0,778 / 0,770 / 0,770 / **0,752**; 80 Gruppen: 0,807 / 0,807 / 0,807 / 0,807 / 0,804 (alle innerhalb 0,003; lineares Modell, lineare Wahrheit, ein Duell je Paar). | `test_the_loss_matters_little` |
+| Warm, σ_u = 0,7 (Merkmale / Duelle allein / Hybrid) bei 1,1 / 2,8 / 5,5 / 11 Spielen je Spieler | Merkmale 0,80 (unabhängig von den Spielen); Duelle 0,66 / 0,71 / 0,79 / **0,85**; Hybrid 0,80 / 0,81 / **0,83** / **0,86**. σ_u = 1,4, 11 Spiele: 0,69 / **0,88** / 0,88. σ_u = 0: Merkmale 0,975, Hybrid 0,93 bis 0,96. | `test_features_duels_and_the_hybrid` |
 | Nichtlineare Wahrheit, σ_u = 0,5, 20 / 80 / 200 Gruppen (linear / Netz) | linear 0,740 / 0,748 / 0,750; Netz **0,740 / 0,825 / 0,835**, Training des Netzes bei 20 Gruppen 0,860; Obergrenze 0,844. | `test_the_net_needs_enough_groups` |
 | Verdikte nennen dieselben Zahlen | Die live berechneten Texte der App geben die obigen Werte wieder. | `test_verdicts_quote_the_measured_numbers` |
 
-Die Verluste unterscheiden sich bei 5 Gruppen um bis zu 0,026, bei 80 um 0,003; Unterschiede dieser Größe sind **kleiner als die Streuung zwischen Instanzen** und nicht als Rangfolge der
-Verfahren zu lesen.
+Die Verluste unterscheiden sich bei 5 Gruppen um bis zu 0,026, bei 80 um 0,003. Die Unterschiede sind klein, aber auf denselben Läufen gesichert (gepaart gegen den paarweisen Duellverlust, 5 Gruppen: NDCG-gewichtet −0,026 ± 0,004, Stufen −0,0076 ± 0,0016, ListNet −0,0079 ± 0,0020, punktweise −0,0005 ± 0,0011; 80 Gruppen: NDCG-gewichtet −0,0032 ± 0,0006): NDCG-gewichtet ist am schwächsten, punktweise und paarweise liegen gleichauf.
 
 ## Befunde und Korrekturen gegenüber dem Plan
 
@@ -58,8 +57,8 @@ Verfahren zu lesen.
 
 - **„Der Hybrid liegt fast immer oben“ stimmt nur beinahe:** Bei viel Unerklärtem (σ_u = 1,4) und 5,5 Spielen liegen Duelle allein (0,823) knapp vor dem Hybrid (0,817), und bei
   σ_u = 0 stören die Duelle die Merkmale (Hybrid 0,935 gegen Merkmale 0,975 bei 1,1 Spielen). Der Hybrid gewinnt dort, wo Merkmale und Duelle beide etwas wissen.
-- **Gitter des Hybrids bis 100 statt 10:** In der Vorab-Messung verlor der Hybrid bei σ_u = 0,3 und 1,1 Spielen gegen die Merkmale, weil das Gitter nur bis 10 reichte; mit dem Gitter bis 100
-  tritt das nur noch bei σ_u = 0 auf.
+- **Gitter des Hybrids bis 100 statt 10:** In der Vorab-Messung verlor der Hybrid bei σ_u = 0,3 und 1,1 Spielen gegen die Merkmale (Gitter nur bis 10). Das Gitter bis 100 behebt den Verlust bei σ_u = 0,7 und 1,1 Spielen; bei kleinem Unerklärten (σ_u = 0 und 0,3) liegt der Hybrid bei wenigen Spielen
+  weiterhin unter den Merkmalen allein (σ_u = 0,3, 1,1 Spiele: 0,879 gegen 0,904).
 - **Netz bis 200 statt 300 Gruppen:** zur Rechenzeit; die Aussage bleibt (0,835 gegen 0,844 der Obergrenze).
 - Die Zahlen verschieben sich um wenige Hundertstel gegen die Vorab-Messung (60 statt 30 Läufe, SplitMix64-Strom, 150 statt 300 Adam-Schritte bei gleicher Genauigkeit).
 
@@ -96,7 +95,7 @@ Verfahren zu lesen.
 
 ## Tests
 
-100 Tests, einige Minuten (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_models.py`: Stufen, NDCG, Paartreffer, Bewertungsfunktion mit Rückwärtsrechnung gegen finite
+135 Tests, rund elf Minuten auf einer ausgelasteten Maschine (die Experimente rechnen über 60 feste Läufe): Einheiten gegen Handwerte (`test_models.py`: Stufen, NDCG, Paartreffer, Bewertungsfunktion mit Rückwärtsrechnung gegen finite
 Differenzen, alle fünf Verlustgradienten gegen finite Differenzen, Training; `test_scenario.py`: Wahrheit, Box-Muller, Gruppen, Duelle, Hybrid), Generator (`test_generator.py`, wortgleich),
 **Orakel** (`test_oracle_learning_to_rank.py`: paarweise Anpassung gegen den BFGS von scipy, NDCG und Paartreffer gegen Aufzählen mit `math.log2`, Eigenschaften über feste Läufe: fast fehlerfrei
 ohne Unerklärtes, nahe Zufall bei viel Unerklärtem, Lücke zwischen Training und Test, Hybrid gegen Duelle und gegen Merkmale), Maße und Verdikte (`test_evaluation.py`), alle Zahlen dieses README

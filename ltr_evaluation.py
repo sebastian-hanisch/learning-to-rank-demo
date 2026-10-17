@@ -192,7 +192,7 @@ def verdict_ceiling(e1):
     ceil_mid = e1[(0.7, 80)]["ceiling"][1]
     return "info", (f"Neue Spieler ohne ein Duell werden bei 80 Trainingsgruppen zu **{de(mid, 2)}** richtig geordnet (Zufall {de(e1[(0.7, 80)]['random'][1])}); die Obergrenze mit der wahren "
                     f"Funktion ist {de(ceil_mid, 2)}. Bleibt nichts unerklärt (σ_u = 0): {de(low, 2)}; bei viel Unerklärtem (σ_u = 1,4): {de(high, 2)}. Mit 5 Gruppen sind es "
-                    f"{de(e1[(0.7, 5)]['test'][1], 2)} statt {de(mid, 2)}: Mehr Gruppen holen die Obergrenze heran, übersteigen sie nicht.")
+                    f"{de(e1[(0.7, 5)]['test'][1], 2)} statt {de(mid, 2)}: Mehr Gruppen holen die Obergrenze heran, übersteigen sie im Mittel nicht.")
 
 
 def verdict_groups(e2):
@@ -211,7 +211,7 @@ def verdict_losses(e3):
     worst5 = min(q5, key=q5.get)
     return "info", (f"Bei 80 Trainingsgruppen liegen alle fünf Verluste innerhalb von **{de(spread80, 3)}** Paartreffer (von {de(min(q80.values()), 3)} bis {de(max(q80.values()), 3)}). "
                     f"Bei 5 Gruppen ist „{worst5.split(' (')[0]}“ am schwächsten ({de(q5[worst5], 3)} gegen {de(q5[PAAR], 3)} beim paarweisen Duellverlust): "
-                    "Der Verlust entscheidet hier wenig, die Zahl der Gruppen mehr.")
+                    "Bei linearem Modell und linearer Wahrheit entscheidet der Verlust hier wenig, die Zahl der Gruppen mehr.")
 
 
 def verdict_warm(e4):

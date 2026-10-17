@@ -47,7 +47,7 @@ PRESETS = {
     "Das Netz lernt Nichtlineares": {**_BASE, "truth": TRUTHS[1], "sigma_u": 0.5, "q_groups": 80, "k_train": 4, "model": MODELS[1]},
 }
 PRESET_HELP = {
-    "Neue Spieler ohne Duelle": "Acht Merkmale, 40 Trainingsgruppen: Neue Spieler ohne ein einziges Duell werden zu rund 0,8 richtig geordnet; mehr geht mit diesen Merkmalen nicht (Obergrenze).",
+    "Neue Spieler ohne Duelle": "Acht Merkmale, 40 Trainingsgruppen: Neue Spieler ohne ein einziges Duell werden zu rund 0,8 richtig geordnet; das ist im Erwartungswert die Obergrenze dieser Merkmale.",
     "Wenn nichts unerklärt bleibt": "Die Merkmale erklären die Stärke vollständig: Neue Spieler werden fast fehlerfrei geordnet.",
     "Merkmale gegen Duelle": "Die Testgruppen haben die Hälfte der Paare gespielt (rund 5,5 Spiele je Spieler): Duelle allein, Merkmale allein und der Hybrid im Vergleich.",
     "Das Netz lernt Nichtlineares": "Nichtlineare Wahrheit, 80 Trainingsgruppen, mehrere Duelle je Paar: Das Netz holt, was das lineare Modell nicht sieht.",

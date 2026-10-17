@@ -208,7 +208,7 @@ st.markdown(
     """
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Die Merkmale sind relevant und vollständig genug** | Was sie nicht erklären (σ_u), bleibt: die Obergrenze liegt bei 0,81 für σ_u = 0,7 (Experiment 1). Duelle sind dann der einzige Weg. | Bradley-Terry |
+| **Die Merkmale sind relevant und vollständig genug** | Was sie nicht erklären (σ_u), bleibt: die Obergrenze liegt im Erwartungswert bei 0,81 für σ_u = 0,7 (Experiment 1). Duelle sind dann der einzige Weg. | Bradley-Terry |
 | **Eine Funktion für alle Gruppen** | Gruppeneffekte (Liga, Saison, Platz) sind nicht modelliert; das Modell würde sie in die Merkmale pressen. | – |
 | **Stufen kommen aus den Siegen** | Echte Relevanzstufen kommen von Bewertern, die selbst unsicher sind. | Die Bewerter sind unsicher |
 | **Merkmale unabhängig, keine fehlenden Werte** | Korrelierte, fehlende oder irrelevante Merkmale verschlechtern die Schätzung; nicht gemessen. | – |
