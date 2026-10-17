@@ -80,14 +80,16 @@ Verfahren zu lesen.
 - **Eigene Umsetzung der Verluste:** Die Ranking-Ziele von Boosting-Bibliotheken (LightGBM, XGBoost) sind nicht gemessen und nicht gegen deren Dokumentation geprüft.
 - **12 Spieler je Gruppe, 8 Merkmale (30 im Überanpassungs-Experiment):** Andere Größen nur über die Regler.
 - **Adam in fester Schrittzahl:** keine Konvergenzprüfung; das Netz ist klein (8 Einheiten) und mit einer Initialisierung je Lauf trainiert.
+- **Formparameter der Sigmoidfunktion:** In der Duellwahrscheinlichkeit und im paarweisen Verlust ist der Formparameter der Sigmoidfunktion 1; Burges 2010 führt ihn als σ ein und lässt ihn frei.
+- **Zielverteilung von ListNet:** Die Zielverteilung (Softmax der zentrierten Siege) ist eine Wahl der Demo; Cao et al. definieren sie über Zielwerte y, hier stehen die Siege an der Stelle von y.
 - **Alles simuliert:** keine Aussage über einen Sport oder ein Suchsystem.
 
 ## Quellen
 
-- Burges, C. et al. (2005): Learning to rank using gradient descent. *ICML 2005* (RankNet; nicht eingesehen).
-- Cao, Z., Qin, T., Liu, T.-Y., Tsai, M.-F., Li, H. (2007): Learning to rank: from pairwise approach to listwise approach. *ICML 2007* (ListNet; nicht eingesehen).
-- Burges, C. J. C. (2010): From RankNet to LambdaRank to LambdaMART: an overview. *Microsoft Research Technical Report MSR-TR-2010-82* (nicht eingesehen).
-- Järvelin, K., Kekäläinen, J. (2002): Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems* 20, 422–446 (Ursprung des NDCG; nicht eingesehen; die Demo rechnet NDCG mit Gewinn 2^Stufe − 1 und Abschlag 1/log₂(i+1), der Schreibweise nach Burges 2010, nicht nach der Originaldefinition).
+- Burges, C. et al. (2005): Learning to rank using gradient descent. *ICML 2005* (RankNet; eingesehen 2026-10-17, ICML-Fassung, Abschnitt 3, Gl. (1)–(3): Kreuzentropie auf Paaren mit logistischer Wahrscheinlichkeit, C_ij = −P̄_ij o_ij + log(1 + e^{o_ij}); Gl. (16): NDCG mit Gewinn 2^r − 1 und Abschlag 1/log(1 + j)).
+- Cao, Z., Qin, T., Liu, T.-Y., Tsai, M.-F., Li, H. (2007): Learning to rank: from pairwise approach to listwise approach. *ICML 2007* (ListNet; eingesehen 2026-10-17, Fassung MSR-TR-2007-40, Abschnitt 4.2, Definition 5 und Theorem 6, und Abschnitt 5: Top-eins-Wahrscheinlichkeit P_s(j) = exp(s_j) / Σ_k exp(s_k), Kreuzentropie L(y, z) = −Σ_j P_y(j) log P_z(j)).
+- Burges, C. J. C. (2010): From RankNet to LambdaRank to LambdaMART: an overview. *Microsoft Research Technical Report MSR-TR-2010-82* (eingesehen 2026-10-17, Abschnitt 2, S. 3: Kosten C = log(1 + e^{−(s_i − s_j)}) für ein Paar mit S_ij = 1, bei s_i = s_j gleich log 2; Abschnitt 3, Gl. (5): DCG@T = Σ (2^{l_i} − 1) / log(1 + i), die Basis des Logarithmus ist dort nicht angegeben und für den NDCG als Quotient ohne Wirkung; Gl. (6): LambdaRank gewichtet den RankNet-Gradienten mit |ΔNDCG|).
+- Järvelin, K., Kekäläinen, J. (2002): Cumulated gain-based evaluation of IR techniques. *ACM Transactions on Information Systems* 20, 422–446 (Ursprung des NDCG; eingesehen 2026-10-17, Abschnitt 2.2, Gl. (2), und Abschnitt 2.3, Gl. (5): Gewinn = Relevanzstufe selbst, Abschlag 1/log_b i erst ab Rang b, Normierung durch das ideale DCG; die Demo rechnet NDCG mit Gewinn 2^Stufe − 1 und Abschlag 1/log₂(i+1), der Schreibweise nach Burges 2010 (Basis des Logarithmus dort offen, hier 2), nicht nach der Originaldefinition).
 - Bradley, R. A., Terry, M. E. (1952): Rank analysis of incomplete block designs. *Biometrika* 39, 324–345 (nicht eingesehen).
 - Steele, G. L., Lea, D., Flood, C. H. (2014): Fast splittable pseudorandom number generators. *OOPSLA 2014*, 453–472 (Zufallsstrom des Generators).
 - **Nicht herangezogen:** die Dokumentation der Ranking-Ziele von LightGBM und XGBoost; die Zahlen dieser Demo sind Simulation.
